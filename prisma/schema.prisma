@@ -5,13 +5,13 @@ generator client {
   provider = "prisma-client-js"
 }
 
-datasource mongo {
+datasource db {
   provider = "mongodb"
-  url      = "mongodb+srv://victorcorassa:Master123@projeto-teste.etadrhx.mongodb.net/projeto-teste?retryWrites=true&w=majority"
+  url      = env("DATABASE_URL")
 }
 
 model Users {
-  id        String   @id @default(auto()) @map("_id") @mongo.ObjectId
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   username  String
   password  String
   createdAt DateTime @default(now())
