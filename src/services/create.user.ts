@@ -1,19 +1,20 @@
 import prismaClient from "../prisma";
 
 export interface CreateUserProps {
-  username: string;
+  name: string;
   password: string;
+  email: string;
 }
 
 export class CreateUserService {
-  async execute({ username, password }: CreateUserProps) {
-    if (!username || !password) {
+  async execute({ email, password, name }: CreateUserProps) {
+    if (!email || !password || !name) {
       throw new Error("Preencha os campos corretamente.");
     }
 
-    const existingUser = await prismaClient.users.findFirst({
+    const existingUser = await prismaClient.user.findFirst({
       where: {
-        username,
+        email,
       },
     });
 
@@ -21,10 +22,11 @@ export class CreateUserService {
       throw new Error("Este username já está em uso. Escolha outro.");
     }
 
-    const user = await prismaClient.users.create({
+    const user = await prismaClient.user.create({
       data: {
-        username,
+        email,
         password,
+        name,
       },
     });
 
