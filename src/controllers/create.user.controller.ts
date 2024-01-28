@@ -1,5 +1,6 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { CreateUserProps, CreateUserService } from "../services/create.user";
+import bcrypt from "bcrypt";
 
 export class CreateUserController {
   async handle(request: FastifyRequest, reply: FastifyReply) {
@@ -11,7 +12,7 @@ export class CreateUserController {
 
     const user = await userService.execute({
       email,
-      password,
+      password: bcrypt.hashSync(password, 10),
       name,
     });
 
