@@ -6,6 +6,7 @@ import {
 } from "fastify";
 import { CreateUserController } from "./controllers/create.user.controller";
 import { ListeUsersController } from "./controllers/list.users.controller";
+import { DeleteUserController } from "./controllers/delete.user.controller";
 
 export const routes = async (
   fastify: FastifyInstance,
@@ -31,6 +32,13 @@ export const routes = async (
     "/users",
     async (request: FastifyRequest, reply: FastifyReply) => {
       return new ListeUsersController().handle(request, reply);
+    }
+  );
+
+  fastify.delete(
+    "/users",
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      return new DeleteUserController().handle(request, reply);
     }
   );
 };
