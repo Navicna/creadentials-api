@@ -14,8 +14,10 @@ export class LoginController {
       const { user, token } = await loginService.execute({ email, password });
 
       reply.send({ user, token });
-    } catch (error) {
-      reply.status(401).send({ error: error.message });
+    } catch (error: any) {
+      reply
+        .status(401)
+        .send({ error: error.message ?? "Erro ao realizar o login." });
     }
   }
 }

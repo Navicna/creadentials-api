@@ -7,6 +7,6 @@ export class ListeUsersController {
 
     const user = await userService.execute();
 
-    reply.send(user);
+    return reply.send(user);
   }
 }
